@@ -1,3 +1,4 @@
+import type {Organization} from 'sentry/types/organization';
 import styled from '@emotion/styled';
 
 import type {ControlProps} from 'sentry/components/forms/controls/selectControl';
@@ -19,9 +20,11 @@ type Props = Omit<ControlProps<OptionType>, 'onChange' | 'value'> & {
    */
   onChange?: (value: OptionType) => void;
   value?: string | null;
+  organization?: Organization;
 };
 
-function RoleSelectControl({roles, disableUnallowed, ...props}: Props) {
+function RoleSelectControl({roles, disableUnallowed, organization, ...props}: Props) {
+  const {allowMemberInvite} = organization || {};
   return (
     <SelectControl
       options={roles
